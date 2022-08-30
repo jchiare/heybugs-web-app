@@ -1,4 +1,4 @@
-# heybugs frontend
+# heybugs web app
 
 Frontend (and while it's a small project, the API backend) for the heybugs web application
 
