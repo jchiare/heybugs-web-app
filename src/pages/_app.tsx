@@ -1,4 +1,3 @@
-// src/pages/_app.tsx
 import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
 import { loggerLink } from '@trpc/client/links/loggerLink';
 import { withTRPC } from '@trpc/next';
@@ -9,6 +8,7 @@ import type { AppRouter } from '../server/router';
 import '../styles/globals.css';
 import { MantineProvider } from '@mantine/core';
 import Head from 'next/head';
+import NavBar from '../components/NavBar';
 
 const MyApp: AppType = ({
   Component,
@@ -32,7 +32,9 @@ const MyApp: AppType = ({
           colorScheme: 'light',
         }}
       >
-        <Component {...pageProps} />
+        <NavBar>
+          <Component {...pageProps} />
+        </NavBar>
       </MantineProvider>
     </SessionProvider>
   );
