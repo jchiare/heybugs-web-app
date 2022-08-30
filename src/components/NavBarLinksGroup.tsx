@@ -80,20 +80,17 @@ export function LinksGroup({
   links,
 }: LinksGroupProps) {
   const { classes, theme } = useStyles();
-  const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
-      component="a"
-      className={classes.link}
-      href={link.link}
-      key={link.label}
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </Text>
-  ));
+  const linkText =
+    Array.isArray(links) &&
+    links.map((link) => (
+      <NextLink href={link.link} passHref key={link.label}>
+        <Text<'a'> component="a" className={classes.link} key={link.label}>
+          {link.label}
+        </Text>
+      </NextLink>
+    ));
 
   return (
     <>
@@ -108,7 +105,7 @@ export function LinksGroup({
             </ThemeIcon>
             <Box ml="md">{label}</Box>
           </Box>
-          {hasLinks && (
+          {linkText && (
             <ChevronIcon
               className={classes.chevron}
               size={14}
@@ -122,7 +119,7 @@ export function LinksGroup({
           )}
         </Group>
       </UnstyledButton>
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+      {linkText && <Collapse in={opened}>{linkText}</Collapse>}
     </>
   );
 }
