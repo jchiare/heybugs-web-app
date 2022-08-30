@@ -4,12 +4,13 @@ import {
   Box,
   Collapse,
   ThemeIcon,
-  Text,
   UnstyledButton,
   createStyles,
+  NavLink,
 } from '@mantine/core';
 import { TablerIcon, IconChevronLeft, IconChevronRight } from '@tabler/icons';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -74,6 +75,7 @@ export function LinksGroup({
   initiallyOpened,
   links,
 }: LinksGroupProps) {
+  const router = useRouter();
   const { classes, theme } = useStyles();
   const [opened, setOpened] = useState(initiallyOpened || false);
   const ChevronIcon = theme.dir === 'ltr' ? IconChevronRight : IconChevronLeft;
@@ -81,9 +83,13 @@ export function LinksGroup({
     Array.isArray(links) &&
     links.map((link) => (
       <NextLink href={link.link} passHref key={link.label}>
-        <Text<'a'> component="a" className={classes.link} key={link.label}>
-          {link.label}
-        </Text>
+        <NavLink<'a'>
+          label={link.label}
+          component="a"
+          className={classes.link}
+          key={link.label}
+          active={router.pathname === `${link.link}`}
+        />
       </NextLink>
     ));
 
