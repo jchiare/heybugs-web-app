@@ -62,12 +62,12 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface LinksGroupProps {
+type LinksGroupProps = {
   icon: TablerIcon;
   label: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];
-}
+};
 
 export function LinksGroup({
   icon: Icon,
