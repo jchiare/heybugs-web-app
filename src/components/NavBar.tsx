@@ -113,7 +113,7 @@ const NavBar: NextPage<LayoutProps> = ({ children }) => {
         <Navbar.Section className={classes.header}>
           <Group spacing={0}>
             <Logo />
-            <Text color="dimmed">heybugs</Text>
+            <Text>heybugs</Text>
           </Group>
         </Navbar.Section>
 

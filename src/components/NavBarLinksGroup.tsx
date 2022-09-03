@@ -88,7 +88,7 @@ export function LinksGroup({
           component="a"
           className={classes.link}
           key={link.label}
-          active={router.pathname === `${link.link}`}
+          active={router.asPath === `${link.link}`}
         />
       </NextLink>
     ));
