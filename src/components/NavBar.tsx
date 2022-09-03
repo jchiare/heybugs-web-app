@@ -7,6 +7,7 @@ import {
   ScrollArea,
   createStyles,
   Grid,
+  Container,
 } from '@mantine/core';
 import {
   IconNotes,
@@ -129,7 +130,9 @@ const NavBar: NextPage<LayoutProps> = ({ children }) => {
           />
         </Navbar.Section>
       </Navbar>
-      <main>{children}</main>
+      <Container fluid p={16}>
+        {children}
+      </Container>
     </Grid>
   );
 };
