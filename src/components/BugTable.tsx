@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { createStyles, Table, ScrollArea } from '@mantine/core';
 
+// TODO - fix colors
+// and add support for darkmode
 const useStyles = createStyles((theme) => ({
   header: {
     position: 'sticky',
