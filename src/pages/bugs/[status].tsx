@@ -8,9 +8,11 @@ const KNOWN_BUG_TYPES = ['reported', 'verified', 'escalated'];
 
 const data: BugTableData = [
   {
-    name: 'john',
-    email: 'jo@do.msn.com',
-    company: 'anycomapny',
+    productArea: 'john',
+    description: 'jo@do.msn.com',
+    views: 0,
+    status: 'reported',
+    reports: 0,
   },
 ];
 
@@ -24,7 +26,7 @@ const BugStatus: NextPage = () => {
 
   return (
     <>
-      <Text weight={500} size={'xl'} pt={'32px'} ml={'-48px'}>
+      <Text weight={500} size={'xl'} pt={'32px'} ml={'-60px'}>
         {bugStatus} bugs
       </Text>
       <Container fluid sx={{ padding: '48px' }}>
