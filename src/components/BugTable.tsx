@@ -39,12 +39,12 @@ export type BugTableData = Array<{
 }>;
 
 export function TableScrollArea({ data }: { data: BugTableData }) {
-  const { classes, cx } = useStyles();
+  const { classes, cx, theme } = useStyles();
   const [scrolled, setScrolled] = useState(false);
 
   const rows = data.map((row) => (
     <tr key={row.description}>
-      <td>{row.productArea}</td>
+      <td style={{ width: '150px' }}>{row.productArea}</td>
       <td>{row.description}</td>
       <td style={{ textAlign: 'right' }}>{row.reports}</td>
       <td style={{ textAlign: 'right' }}>{row.views}</td>
@@ -56,12 +56,19 @@ export function TableScrollArea({ data }: { data: BugTableData }) {
       sx={{ height: 300 }}
       onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
     >
-      <Table sx={{ minWidth: 700, backgroundColor: '#DEE2E6' }}>
+      <Table
+        sx={{
+          width: '100%',
+          maxWidth: '1000px',
+          backgroundColor: theme.colors?.gray?.[1],
+          borderRadius: '0.2rem',
+        }}
+      >
         <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
           <tr>
-            <th>Product Area</th>
+            <th style={{ width: '150px' }}>Product Area</th>
             <th>Description</th>
-            <th style={{ textAlign: 'right', width: '100px' }}>Reported #</th>
+            <th style={{ textAlign: 'right', width: '80px' }}>Reports</th>
             <th style={{ textAlign: 'right', width: '80px' }}>Views</th>
           </tr>
         </thead>

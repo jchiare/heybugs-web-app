@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { Container, Text } from '@mantine/core';
+import { Container, Text, Button } from '@mantine/core';
 import { TableScrollArea, BugTableData } from '../../components/BugTable';
 
 import type { NextPage } from 'next/types';
@@ -10,6 +10,14 @@ const data: BugTableData = [
   {
     productArea: 'john',
     description: 'jo@do.msn.com',
+    views: 0,
+    status: 'reported',
+    reports: 0,
+  },
+  {
+    productArea: 'anywhere',
+    description:
+      'jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com',
     views: 0,
     status: 'reported',
     reports: 0,
@@ -26,9 +34,12 @@ const BugStatus: NextPage = () => {
 
   return (
     <>
-      <Text weight={500} size={'xl'} pt={'32px'} ml={'-60px'}>
+      <Text weight={500} size={'xl'} pt={'32px'}>
         {bugStatus} bugs
       </Text>
+      <Button sx={{ float: 'right', marginRight: '48px', top: '-36px' }}>
+        Create Bug
+      </Button>
       <Container fluid sx={{ padding: '48px' }}>
         <TableScrollArea data={data} />
       </Container>
