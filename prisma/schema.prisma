@@ -62,3 +62,34 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Bug {
+    id          String      @id @default(cuid())
+    description String
+    productArea ProductArea @relation(fields: [id], references: [name])
+    createdAt   DateTime
+    updatedAt   DateTime
+    deletedAt   DateTime
+}
+
+model ProductArea {
+    id        String   @id @default(cuid())
+    name      String   @unique
+    createdAt DateTime
+    updatedAt DateTime
+    deletedAt DateTime
+    Bug       Bug[]
+}
+
+// export type Bug = {
+//   description: string;
+//   productArea: string;
+//   status: string;
+//   numReports: number;
+//   numViews: number;
+//   stepsToReproduce?: string;
+//   expectedBehaviour?: string;
+//   knownWorkaround?: string;
+//   id: number;
+//   accountId: number;
+// };
