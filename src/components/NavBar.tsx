@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { trpc } from '../utils/trpc';
 import {
   Navbar,
   Group,
@@ -93,11 +92,6 @@ type LayoutProps = {
 };
 
 const NavBar: NextPage<LayoutProps> = ({ children }) => {
-  const { data, isLoading } = trpc.useQuery([
-    'example.hello',
-    { text: 'from tRPC' },
-  ]);
-
   const { classes } = useStyles();
   const links = mockdata.map((item) => (
     <LinksGroup {...item} key={item.label} />
