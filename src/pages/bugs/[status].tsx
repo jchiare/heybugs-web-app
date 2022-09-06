@@ -34,7 +34,7 @@ const BugStatus: NextPage = () => {
 
   return (
     <>
-      <Text align="center" weight={500} size={'xl'} pt={'32px'}>
+      <Text align="center" weight={500} size={'xl'} pt={'32px'} pr={'60px'}>
         {bugStatus} bugs
       </Text>
       <Button sx={{ float: 'right', marginRight: '48px', top: '-36px' }}>
