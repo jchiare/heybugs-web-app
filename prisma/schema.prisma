@@ -12,10 +12,6 @@ datasource db {
     referentialIntegrity = "prisma"
 }
 
-model Example {
-    id String @id @default(cuid())
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -53,6 +49,8 @@ model User {
     sessions       Session[]
     organizationId String
     organization   Organization @relation(fields: [organizationId], references: [id])
+
+    @@index([organizationId], name: "organization")
 }
 
 model VerificationToken {
@@ -80,6 +78,9 @@ model Bug {
     urlSlug           String
     organizationId    String
     organization      Organization @relation(fields: [organizationId], references: [id])
+
+    @@index([organizationId], name: "organization")
+    @@index([productAreaId], name: "productArea")
 }
 
 model Organization {
