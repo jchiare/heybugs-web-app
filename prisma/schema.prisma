@@ -65,7 +65,7 @@ model VerificationToken {
 
 model Bug {
     id                String       @id @default(cuid())
-    description       String
+    description       String       @db.Text
     productAreaId     String
     ProductArea       ProductArea  @relation(fields: [productAreaId], references: [id])
     createdAt         DateTime     @default(now())
@@ -74,9 +74,9 @@ model Bug {
     status            String?
     numReports        Int          @default(0)
     numViews          Int          @default(0)
-    stepsToReproduce  String?
-    expectedBehaviour String?
-    actualBehaviour   String?
+    stepsToReproduce  String?      @db.Text
+    expectedBehaviour String?      @db.Text
+    actualBehaviour   String?      @db.Text
     urlSlug           String
     organizationId    String
     organization      Organization @relation(fields: [organizationId], references: [id])
