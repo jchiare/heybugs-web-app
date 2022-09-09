@@ -1,31 +1,20 @@
 import { useRouter } from 'next/router';
 import { Container, Text, Button } from '@mantine/core';
-import { TableScrollArea, BugTableData } from '../../components/BugTable';
+import { TableScrollArea } from '../../components/BugTable';
+import { getServerAuthSession } from '../../server/services/server-side-auth.service';
 import { prisma } from '../../server/db/client';
 
-import type { NextPage, GetServerSideProps } from 'next/types';
+import type {
+  NextPage,
+  GetServerSideProps,
+  InferGetServerSidePropsType,
+} from 'next/types';
 
 const KNOWN_BUG_TYPES = ['reported', 'verified', 'escalated'];
 
-const data: BugTableData = [
-  {
-    productArea: 'john',
-    description: 'jo@do.msn.com',
-    views: 0,
-    status: 'reported',
-    reports: 0,
-  },
-  {
-    productArea: 'anywhere',
-    description:
-      'jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com jo@do.msn.com',
-    views: 0,
-    status: 'reported',
-    reports: 0,
-  },
-];
-
-const BugStatus: NextPage = () => {
+const BugStatus: NextPage = ({
+  bugs,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const bugStatus = router.query.status as string;
 
@@ -42,15 +31,29 @@ const BugStatus: NextPage = () => {
         Create Bug
       </Button>
       <Container fluid sx={{ padding: '48px' }}>
-        <TableScrollArea data={data} />
+        <TableScrollArea data={bugs} />
       </Container>
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerAuthSession({ req, res });
+  console.log(session);
+
+  const bugs = await prisma.bug.findMany({
+    where: {
+      organizationId: 1,
+    },
+    include: {
+      ProductArea: true,
+    },
+  });
+
+  console.log(JSON.parse(JSON.stringify(bugs)));
+
   return {
-    props: {}, // will be passed to the page component as props
+    props: { bugs: JSON.parse(JSON.stringify(bugs)) }, // will be passed to the page component as props
   };
 };
 

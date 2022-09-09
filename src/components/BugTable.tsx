@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { createStyles, Table, ScrollArea } from '@mantine/core';
 
+import type { Bug, ProductArea } from '@prisma/client';
+
 // TODO - fix colors
 // and add support for darkmode
 const useStyles = createStyles((theme) => ({
@@ -30,13 +32,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export type BugTableData = Array<{
-  productArea: string;
-  description: string;
-  status: string;
-  views: number;
-  reports: number;
-}>;
+export type BugTableData = (Bug & {
+  ProductArea: ProductArea;
+})[];
 
 export function TableScrollArea({ data }: { data: BugTableData }) {
   const { classes, cx, theme } = useStyles();
@@ -44,10 +42,10 @@ export function TableScrollArea({ data }: { data: BugTableData }) {
 
   const rows = data.map((row) => (
     <tr key={row.description}>
-      <td style={{ width: '150px' }}>{row.productArea}</td>
+      <td style={{ width: '150px' }}>{row.ProductArea.name}</td>
       <td>{row.description}</td>
-      <td style={{ textAlign: 'right' }}>{row.reports}</td>
-      <td style={{ textAlign: 'right' }}>{row.views}</td>
+      <td style={{ textAlign: 'right' }}>{row.numReports}</td>
+      <td style={{ textAlign: 'right' }}>{row.numViews}</td>
     </tr>
   ));
 
