@@ -8,5 +8,5 @@ export type Bug = {
   expectedBehaviour?: string;
   knownWorkaround?: string;
   id: number;
-  accountId: number;
+  organizationId: number;
 };

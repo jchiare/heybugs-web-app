@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
 import { Container, Text, Button } from '@mantine/core';
 import { TableScrollArea, BugTableData } from '../../components/BugTable';
+import { prisma } from '../../server/db/client';
 
-import type { NextPage } from 'next/types';
+import type { NextPage, GetServerSideProps } from 'next/types';
 
 const KNOWN_BUG_TYPES = ['reported', 'verified', 'escalated'];
 
@@ -45,6 +46,12 @@ const BugStatus: NextPage = () => {
       </Container>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    props: {}, // will be passed to the page component as props
+  };
 };
 
 export default BugStatus;

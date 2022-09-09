@@ -50,7 +50,7 @@ model User {
     deletedAt      DateTime?
     accounts       Account[]
     sessions       Session[]
-    organizationId String
+    organizationId Int
     organization   Organization @relation(fields: [organizationId], references: [id])
 
     @@index([organizationId], name: "organization")
@@ -67,7 +67,7 @@ model VerificationToken {
 model Bug {
     id                String       @id @default(cuid())
     description       String       @db.Text
-    productAreaId     String
+    productAreaId     Int
     ProductArea       ProductArea  @relation(fields: [productAreaId], references: [id])
     createdAt         DateTime     @default(now())
     updatedAt         DateTime?    @updatedAt
@@ -78,8 +78,8 @@ model Bug {
     stepsToReproduce  String?      @db.Text
     expectedBehaviour String?      @db.Text
     actualBehaviour   String?      @db.Text
-    urlSlug           String
-    organizationId    String
+    urlSlug           String?
+    organizationId    Int
     organization      Organization @relation(fields: [organizationId], references: [id])
 
     @@index([organizationId], name: "organization")
@@ -87,7 +87,7 @@ model Bug {
 }
 
 model Organization {
-    id        String    @id @default(cuid())
+    id        Int       @id @default(autoincrement())
     name      String    @unique
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt
@@ -97,7 +97,7 @@ model Organization {
 }
 
 model ProductArea {
-    id        String    @id @default(cuid())
+    id        Int       @id @default(autoincrement())
     name      String    @unique
     createdAt DateTime  @default(now())
     updatedAt DateTime? @updatedAt

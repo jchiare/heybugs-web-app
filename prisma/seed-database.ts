@@ -1,16 +1,26 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 const prisma = new PrismaClient();
 
+const fakeBug: Prisma.BugUncheckedCreateInput = {
+  description: "can't access dashboard",
+  productAreaId: 1,
+  organizationId: 1,
+};
+
+const fakeProductArea: Prisma.ProductAreaUncheckedCreateInput = {
+  name: 'John doe',
+};
+
 const fakeUser: Prisma.UserUncheckedCreateInput = {
   name: 'Jay Chiarella',
   email: 'jay.gch93@gmail.com',
-  organizationId: '1',
+  organizationId: 1,
   emailVerified: null,
   image: null,
 };
 
 const organization: Prisma.OrganizationUncheckedCreateInput = {
-  id: '1',
+  id: 1,
   name: 'heybugs',
 };
 
