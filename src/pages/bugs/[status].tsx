@@ -4,6 +4,7 @@ import { TableScrollArea } from '../../components/BugTable';
 import { getServerAuthSession } from '../../server/services/server-side-auth.service';
 import { prisma } from '../../server/db/client';
 import { useQuery } from 'react-query';
+import { getBaseUrl } from '../_app';
 
 import type {
   NextPage,
@@ -18,7 +19,7 @@ const BugStatus: NextPage = () => {
   const bugStatus = router.query.status as string;
 
   const { isLoading, data } = useQuery([`bugStatus:${bugStatus}`], () =>
-    fetch(`http://localhost:3000/api/bugs?status=${bugStatus}`).then((res) =>
+    fetch(`${getBaseUrl()}/api/bugs?status=${bugStatus}`).then((res) =>
       res.json()
     )
   );
