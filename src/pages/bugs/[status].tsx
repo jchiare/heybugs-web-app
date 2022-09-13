@@ -43,26 +43,12 @@ const BugStatus: NextPage = () => {
   );
 };
 
-/*
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  console.time('server auth');
-  const session = await getServerAuthSession({ req, res });
-  console.timeEnd('server auth');
-  console.log(session);
+  await getServerAuthSession({ req, res });
 
-  console.time('prisma');
-  const bugs = await prisma.bug.findMany({
-    where: {
-      organizationId: 1,
-    },
-    include: {
-      ProductArea: true,
-    },
-  });
-  console.timeEnd('prisma');
   return {
-    props: { bugs: JSON.parse(JSON.stringify(bugs)) }, // will be passed to the page component as props
+    props: {}, // will be passed to the page component as props
   };
-};*/
+};
 
 export default BugStatus;
