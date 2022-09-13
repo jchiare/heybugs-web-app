@@ -4,6 +4,9 @@ import '../styles/globals.css';
 import { MantineProvider } from '@mantine/core';
 import Head from 'next/head';
 import NavBar from '../components/NavBar';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const MyApp: AppType = ({
   Component,
@@ -27,9 +30,11 @@ const MyApp: AppType = ({
           colorScheme: 'light',
         }}
       >
-        <NavBar>
-          <Component {...pageProps} />
-        </NavBar>
+        <QueryClientProvider client={queryClient}>
+          <NavBar>
+            <Component {...pageProps} />
+          </NavBar>
+        </QueryClientProvider>
       </MantineProvider>
     </SessionProvider>
   );

@@ -3,6 +3,7 @@ import { Container, Text, Button } from '@mantine/core';
 import { TableScrollArea } from '../../components/BugTable';
 import { getServerAuthSession } from '../../server/services/server-side-auth.service';
 import { prisma } from '../../server/db/client';
+import { useQuery } from 'react-query';
 
 import type {
   NextPage,
@@ -12,11 +13,15 @@ import type {
 
 const KNOWN_BUG_TYPES = ['reported', 'verified', 'escalated'];
 
-const BugStatus: NextPage = ({
-  bugs,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const BugStatus: NextPage = () => {
   const router = useRouter();
   const bugStatus = router.query.status as string;
+
+  const { isLoading, data } = useQuery([`bugStatus:${bugStatus}`], () =>
+    fetch(`http://localhost:3000/api/bugs?status=${bugStatus}`).then((res) =>
+      res.json()
+    )
+  );
 
   if (!KNOWN_BUG_TYPES.includes(bugStatus?.toLowerCase())) {
     return <div>should be a 404 error</div>;
@@ -31,16 +36,20 @@ const BugStatus: NextPage = ({
         Create Bug
       </Button>
       <Container fluid sx={{ padding: '48px' }}>
-        <TableScrollArea data={bugs} />
+        <TableScrollArea isLoading={isLoading} data={data} />
       </Container>
     </>
   );
 };
 
+/*
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  console.time('server auth');
   const session = await getServerAuthSession({ req, res });
+  console.timeEnd('server auth');
   console.log(session);
 
+  console.time('prisma');
   const bugs = await prisma.bug.findMany({
     where: {
       organizationId: 1,
@@ -49,12 +58,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       ProductArea: true,
     },
   });
-
-  console.log(JSON.parse(JSON.stringify(bugs)));
-
+  console.timeEnd('prisma');
   return {
     props: { bugs: JSON.parse(JSON.stringify(bugs)) }, // will be passed to the page component as props
   };
-};
+};*/
 
 export default BugStatus;

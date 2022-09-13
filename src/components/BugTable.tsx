@@ -36,18 +36,26 @@ export type BugTableData = (Bug & {
   ProductArea: ProductArea;
 })[];
 
-export function TableScrollArea({ data }: { data: BugTableData }) {
+export function TableScrollArea({
+  data,
+  isLoading,
+}: {
+  data: BugTableData;
+  isLoading: boolean;
+}) {
   const { classes, cx, theme } = useStyles();
   const [scrolled, setScrolled] = useState(false);
 
-  const rows = data.map((row) => (
-    <tr key={row.description}>
-      <td style={{ width: '150px' }}>{row.ProductArea.name}</td>
-      <td>{row.description}</td>
-      <td style={{ textAlign: 'right' }}>{row.numReports}</td>
-      <td style={{ textAlign: 'right' }}>{row.numViews}</td>
-    </tr>
-  ));
+  const rows =
+    !isLoading &&
+    data.map((row) => (
+      <tr key={row.description}>
+        <td style={{ width: '150px' }}>{row.ProductArea.name}</td>
+        <td>{row.description}</td>
+        <td style={{ textAlign: 'right' }}>{row.numReports}</td>
+        <td style={{ textAlign: 'right' }}>{row.numViews}</td>
+      </tr>
+    ));
 
   return (
     <ScrollArea
